@@ -7,10 +7,10 @@ using UnityEngine.Events;
 public class LevelManager : MonoBehaviour
 {
 	[Header("Level Prefabs")]
-	public GameObject PlayerPrefab;
-	public GameObject ExitPrefab;
-	public GameObject BlockPrefab;
-	public GameObject CratePrefab;
+	public PlayerElement PlayerPrefab;
+	public ExitElement ExitPrefab;
+	public BlockElement BlockPrefab;
+	public CrateElement CratePrefab;
 	public GameObject GroundPrefab;
 
 	[Header("Level Data")]
@@ -21,6 +21,8 @@ public class LevelManager : MonoBehaviour
 	public List<Vector2Int> CratePositions;
 
 	private Transform _transform;
+
+	private Element[,] level;
 
 	private void Awake()
 	{
@@ -48,13 +50,28 @@ public class LevelManager : MonoBehaviour
 			}	
 		}
 
-		Instantiate (PlayerPrefab, (Vector2)PlayerPosition, Quaternion.identity, _transform);
-		Instantiate (ExitPrefab, (Vector2)ExitPosition, Quaternion.identity, _transform);
+		level = new Element[Size.x, Size.y];
+
+		PlayerElement playerElementClone = Instantiate (PlayerPrefab, (Vector2)PlayerPosition, Quaternion.identity, _transform);
+		playerElementClone.Initialize (level);
+
+		level [PlayerPosition.x, PlayerPosition.y] = playerElementClone;
+
+		ExitElement exitElementClone = Instantiate (ExitPrefab, (Vector2)ExitPosition, Quaternion.identity, _transform);
+		level [ExitPosition.x, ExitPosition.y] = exitElementClone;
 
 		foreach (Vector2Int blockPosition in BlockPositions)
-			Instantiate (BlockPrefab, (Vector2)blockPosition, Quaternion.identity, _transform);
-
+		{
+			BlockElement blockElementClone = Instantiate (BlockPrefab, (Vector2)blockPosition, Quaternion.identity, _transform);
+			level [blockPosition.x, blockPosition.y] = blockElementClone;
+		}
+			
 		foreach (Vector2Int cratePosition in CratePositions)
-			Instantiate (CratePrefab, (Vector2)cratePosition, Quaternion.identity, _transform);
+		{
+			CrateElement crateElementClone = Instantiate (CratePrefab, (Vector2)cratePosition, Quaternion.identity, _transform);
+			crateElementClone.Initialize (level);
+
+			level [cratePosition.x, cratePosition.y] = crateElementClone;
+		}
 	}
 }

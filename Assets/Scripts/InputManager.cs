@@ -4,6 +4,27 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+	#region Singleton
+	private static InputManager _instance;
+
+	public static InputManager Instance
+	{
+		get
+		{
+			if (_instance == null)
+			{
+				// ako netko zeli pristup prije nego se ovo postavi
+				_instance = (InputManager)FindObjectOfType (typeof(InputManager));
+
+				if (_instance == null)
+					Debug.Log ("An instance of InputManager doesn't exist!");
+			}
+
+			return _instance;
+		}
+	}
+	#endregion
+
 	[Header("Input Key Codes")]
 	public List<KeyCode> UpKeyCodes;
 	public List<KeyCode> DownKeyCodes;
@@ -14,6 +35,9 @@ public class InputManager : MonoBehaviour
 
 	private void Awake()
 	{
+		if (Instance != this)
+			Destroy (gameObject);
+
 		OnInputReceived.AddListener (OnInputReceivedListener);
 	}
 
