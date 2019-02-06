@@ -271,13 +271,8 @@ MonoBehaviour:
     type: 2}
   GroundPrefab: {fileID: 1791333038457446, guid: 4a6815e8388c5834dacd7cc6ff24f97c,
     type: 2}
-  Size: {x: 4, y: 4}
-  PlayerPosition: {x: 0, y: 0}
-  ExitPosition: {x: 2, y: 2}
-  BlockPositions: []
-  CratePositions:
-  - {x: 0, y: 2}
-  - {x: 1, y: 1}
+  LevelData: {fileID: 11400000, guid: ad7e9a72de22e854fb3b75f10cc0b742, type: 2}
+  ThemeData: {fileID: 11400000, guid: fd83aac9a3c03e54eb8b5ac1c028295f, type: 2}
 --- !u!4 &1946595623
 Transform:
   m_ObjectHideFlags: 0

@@ -14,11 +14,10 @@ public class LevelManager : MonoBehaviour
 	public GameObject GroundPrefab;
 
 	[Header("Level Data")]
-	public Vector2Int Size;
-	public Vector2Int PlayerPosition;
-	public Vector2Int ExitPosition;
-	public List<Vector2Int> BlockPositions;
-	public List<Vector2Int> CratePositions;
+	public LevelData LevelData;
+
+	[Header("Theme Data")]
+	public ThemeData ThemeData;
 
 	private Transform _transform;
 
@@ -39,37 +38,48 @@ public class LevelManager : MonoBehaviour
 		Transform groundParent = new GameObject ("GroundParent").transform;
 		groundParent.SetParent (_transform);
 
-		for (int i = -1; i <= Size.x; i++)
+		for (int i = -1; i <= LevelData.Size.x; i++)
 		{
-			for (int j = -1; j <= Size.y; j++)
+			for (int j = -1; j <= LevelData.Size.y; j++)
 			{
-				if((i==-1) || (j==-1) || (i==Size.x) || (j==Size.y))
-					Instantiate (BlockPrefab, new Vector3 (i, j, 0.0f), Quaternion.identity, blockParent);
+				if ((i == -1) || (j == -1) || (i == LevelData.Size.x) || (j == LevelData.Size.y)) {
+					BlockElement blockClone = Instantiate (BlockPrefab, new Vector3 (i, j, 0.0f), Quaternion.identity, blockParent);
+					blockClone.GetComponent<SpriteRenderer> ().sprite = ThemeData.BlockSprite;
+				}
 				else
-					Instantiate (GroundPrefab, new Vector3 (i, j, 0.0f), Quaternion.identity, groundParent);
+				{
+					GameObject groundClone = Instantiate (GroundPrefab, new Vector3 (i, j, 0.0f), Quaternion.identity, groundParent);
+					groundClone.GetComponent<SpriteRenderer> ().sprite = ThemeData.GroundSprite;
+				}
 			}	
 		}
 
-		level = new Element[Size.x, Size.y];
+		level = new Element[LevelData.Size.x, LevelData.Size.y];
 
-		PlayerElement playerElementClone = Instantiate (PlayerPrefab, (Vector2)PlayerPosition, Quaternion.identity, _transform);
+		PlayerElement playerElementClone = Instantiate (PlayerPrefab, (Vector2)LevelData.PlayerPosition, Quaternion.identity, _transform);
 		playerElementClone.Initialize (level);
+		playerElementClone.GetComponent<SpriteRenderer> ().sprite = ThemeData.PlayerSprite;
 
-		level [PlayerPosition.x, PlayerPosition.y] = playerElementClone;
+		level [LevelData.PlayerPosition.x, LevelData.PlayerPosition.y] = playerElementClone;
 
-		ExitElement exitElementClone = Instantiate (ExitPrefab, (Vector2)ExitPosition, Quaternion.identity, _transform);
-		level [ExitPosition.x, ExitPosition.y] = exitElementClone;
+		ExitElement exitElementClone = Instantiate (ExitPrefab, (Vector2)LevelData.ExitPosition, Quaternion.identity, _transform);
+		exitElementClone.GetComponent<SpriteRenderer> ().sprite = ThemeData.ExitSprite;
 
-		foreach (Vector2Int blockPosition in BlockPositions)
+		level [LevelData.ExitPosition.x, LevelData.ExitPosition.y] = exitElementClone;
+
+		foreach (Vector2Int blockPosition in LevelData.BlockPositions)
 		{
 			BlockElement blockElementClone = Instantiate (BlockPrefab, (Vector2)blockPosition, Quaternion.identity, _transform);
+			blockElementClone.GetComponent<SpriteRenderer> ().sprite = ThemeData.BlockSprite;
+
 			level [blockPosition.x, blockPosition.y] = blockElementClone;
 		}
 			
-		foreach (Vector2Int cratePosition in CratePositions)
+		foreach (Vector2Int cratePosition in LevelData.CratePositions)
 		{
 			CrateElement crateElementClone = Instantiate (CratePrefab, (Vector2)cratePosition, Quaternion.identity, _transform);
 			crateElementClone.Initialize (level);
+			crateElementClone.GetComponent<SpriteRenderer> ().sprite = ThemeData.CrateSprite;
 
 			level [cratePosition.x, cratePosition.y] = crateElementClone;
 		}
