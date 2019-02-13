@@ -7,6 +7,19 @@ using UnityEditor;
 [CustomEditor(typeof(LevelManager))]
 public class LevelManagerEditor : Editor
 {
+	//private static int _levelDataCounter = 0;
+
+	private void SaveLevelDataAsAsset(LevelData levelData)
+	{
+		AssetDatabase.CreateAsset (levelData, "Assets/Level Data SOs/New Level Data.asset");
+		AssetDatabase.SaveAssets ();
+
+		EditorUtility.FocusProjectWindow ();
+		Selection.activeObject = levelData;
+
+		//_levelDataCounter++;
+	}
+
 	public override void OnInspectorGUI ()
 	{
 		base.OnInspectorGUI ();
@@ -23,6 +36,6 @@ public class LevelManagerEditor : Editor
 			levelManager.GenerateRandomLevel ();
 
 		if (GUILayout.Button ("Save Level as Asset"))
-			Debug.Log ("Save Level As Asset");
+			SaveLevelDataAsAsset (levelManager.LevelData);
 	}
 }

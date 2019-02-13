@@ -269,8 +269,12 @@ MonoBehaviour:
     type: 2}
   GroundPrefab: {fileID: 1791333038457446, guid: 4a6815e8388c5834dacd7cc6ff24f97c,
     type: 2}
-  LevelData: {fileID: 11400000, guid: ad7e9a72de22e854fb3b75f10cc0b742, type: 2}
+  LevelData: {fileID: 11400000, guid: 244119454408c664984ec191a590e648, type: 2}
   ThemeData: {fileID: 11400000, guid: fd83aac9a3c03e54eb8b5ac1c028295f, type: 2}
+  RandomLevelSizeX: {x: 4, y: 8}
+  RandomLevelSizeY: {x: 4, y: 8}
+  BlocksInterval: {x: 3, y: 5}
+  CratesInterval: {x: 3, y: 5}
 --- !u!4 &1946595623
 Transform:
   m_ObjectHideFlags: 0

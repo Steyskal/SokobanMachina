@@ -22,6 +22,8 @@ public class LevelManager : MonoBehaviour
 	[Header("Random Level Data")]
 	public Vector2Int RandomLevelSizeX;
 	public Vector2Int RandomLevelSizeY;
+	public Vector2Int BlocksInterval;
+	public Vector2Int CratesInterval;
 
 	private Transform _transform;
 
@@ -104,16 +106,44 @@ public class LevelManager : MonoBehaviour
 		}
 	}
 
+	private Vector2Int GetRandomAvailableGridPosition(List<Vector2Int> availableGridPositions)
+	{
+		int randomAvailableGridPositionIndex = Random.Range (0, availableGridPositions.Count);
+		Vector2Int availableGridPosition = availableGridPositions [randomAvailableGridPositionIndex];
+
+		availableGridPositions.RemoveAt (randomAvailableGridPositionIndex);
+
+		return availableGridPosition;
+	}
+
 	public void GenerateRandomLevel()
 	{
 		int sizeX = Random.Range (RandomLevelSizeX.x, RandomLevelSizeX.y);
 		int sizeY = Random.Range (RandomLevelSizeY.x, RandomLevelSizeY.y);
 
+		List<Vector2Int> availableGridPositions = new List<Vector2Int> ();
+
+		for (int x = 0; x < sizeX; x++)
+			for (int y = 0; y < sizeY; y++)
+				availableGridPositions.Add (new Vector2Int (x, y));
+
 		LevelData = ScriptableObject.CreateInstance<LevelData> ();
 		LevelData.Size = new Vector2Int (sizeX, sizeY);
+		LevelData.PlayerPosition = GetRandomAvailableGridPosition (availableGridPositions);
+		LevelData.ExitPosition = GetRandomAvailableGridPosition (availableGridPositions);
 		LevelData.BlockPositions = new List<Vector2Int> ();
 		LevelData.CratePositions = new List<Vector2Int> ();
 			
+		int randomBlockCount = Random.Range (BlocksInterval.x, BlocksInterval.y);
+
+		for (int i = 0; i < randomBlockCount; i++)
+			LevelData.BlockPositions.Add (GetRandomAvailableGridPosition (availableGridPositions));
+
+		int randomCrateCount = Random.Range (CratesInterval.x, CratesInterval.y);
+
+		for (int i = 0; i < randomBlockCount; i++)
+			LevelData.CratePositions.Add (GetRandomAvailableGridPosition (availableGridPositions));
+
 		GenerateLevel ();
 	}
 }
