@@ -31,6 +31,8 @@ public class PlayerElement : Element
 					//vizualni dio !SAMO
 					_transform.position += directionVector;
 
+					//this
+					//PlayerElement = GetComponent<PlayerElement>();
 					_Level[(int)_transform.position.x,(int)_transform.position.y] = this;
 
 					if(destinationElement is ExitElement)

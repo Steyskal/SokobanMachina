@@ -140,10 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d6754dee74fa2545bed578f3015db4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpKeyCodes: 7700000011010000
-  DownKeyCodes: 7300000012010000
-  LeftKeyCodes: 6100000014010000
-  RightKeyCodes: 6400000013010000
+  InputKeyCodesData: {fileID: 11400000, guid: 673f3717556cb27458ba65cd5cbbb9aa, type: 2}
+  SwipeDeadzoneRadius: 50
 --- !u!4 &356991335
 Transform:
   m_ObjectHideFlags: 0
