@@ -19,6 +19,10 @@ public class LevelManager : MonoBehaviour
 	[Header("Theme Data")]
 	public ThemeData ThemeData;
 
+	[Header("Random Level Data")]
+	public Vector2Int RandomLevelSizeX;
+	public Vector2Int RandomLevelSizeY;
+
 	private Transform _transform;
 
 	private Element[,] level;
@@ -27,10 +31,18 @@ public class LevelManager : MonoBehaviour
 	{
 		_transform = transform;
 
-		GenerateLevel ();
+		//GenerateLevel ();
 	}
 
-	private void GenerateLevel()
+	public void ClearLevel()
+	{
+		level = null;
+
+		foreach (Transform childTransform in transform)
+			Destroy (childTransform.gameObject);
+	}
+
+	private void GenerateEnvironment()
 	{
 		Transform blockParent = new GameObject ("BlockParent").transform;
 		blockParent.SetParent (_transform);
@@ -53,6 +65,13 @@ public class LevelManager : MonoBehaviour
 				}
 			}	
 		}
+	}
+
+	public void GenerateLevel()
+	{
+		ClearLevel ();
+
+		GenerateEnvironment ();
 
 		level = new Element[LevelData.Size.x, LevelData.Size.y];
 
@@ -83,5 +102,18 @@ public class LevelManager : MonoBehaviour
 
 			level [cratePosition.x, cratePosition.y] = crateElementClone;
 		}
+	}
+
+	public void GenerateRandomLevel()
+	{
+		int sizeX = Random.Range (RandomLevelSizeX.x, RandomLevelSizeX.y);
+		int sizeY = Random.Range (RandomLevelSizeY.x, RandomLevelSizeY.y);
+
+		LevelData = ScriptableObject.CreateInstance<LevelData> ();
+		LevelData.Size = new Vector2Int (sizeX, sizeY);
+		LevelData.BlockPositions = new List<Vector2Int> ();
+		LevelData.CratePositions = new List<Vector2Int> ();
+			
+		GenerateLevel ();
 	}
 }
