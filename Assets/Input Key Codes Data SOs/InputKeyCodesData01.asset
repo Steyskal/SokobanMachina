@@ -15,3 +15,4 @@ MonoBehaviour:
   DownKeyCodes: 73000000
   LeftKeyCodes: 61000000
   RightKeyCodes: 64000000
+  UndoKeyCodes: 75000000

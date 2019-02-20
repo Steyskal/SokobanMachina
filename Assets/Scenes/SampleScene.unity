@@ -141,6 +141,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InputKeyCodesData: {fileID: 11400000, guid: 673f3717556cb27458ba65cd5cbbb9aa, type: 2}
+  OnUndoInputReceived:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   SwipeDeadzoneRadius: 50
 --- !u!4 &356991335
 Transform:

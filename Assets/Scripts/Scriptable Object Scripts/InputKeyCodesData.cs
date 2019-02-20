@@ -11,4 +11,6 @@ public class InputKeyCodesData : ScriptableObject
 	public List<KeyCode> DownKeyCodes;
 	public List<KeyCode> LeftKeyCodes;
 	public List<KeyCode> RightKeyCodes;
+
+	public List<KeyCode> UndoKeyCodes;
 }

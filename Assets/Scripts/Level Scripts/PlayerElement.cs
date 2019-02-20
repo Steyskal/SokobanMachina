@@ -93,6 +93,30 @@ public class PlayerElement : Element
 
 	private void OnInputReceivedListener(Direction direction)
 	{
+		LevelData levelState = ScriptableObject.CreateInstance<LevelData> ();
+		levelState.Size = new Vector2Int (_Level.GetLength (0), _Level.GetLength (1));
+		levelState.BlockPositions = new List<Vector2Int> ();
+		levelState.CratePositions = new List<Vector2Int> ();
+
+		for (int y = _Level.GetLength(1) - 1; y >= 0; y--)
+		{
+			for (int x = 0; x < _Level.GetLength(0); x++)
+			{
+				Element element = _Level [x, y];
+
+				if (element is PlayerElement)
+					levelState.PlayerPosition = new Vector2Int (x, y);
+				else if (element is ExitElement)
+					levelState.ExitPosition = new Vector2Int (x, y);
+				else if (element is BlockElement)
+					levelState.BlockPositions.Add (new Vector2Int (x, y));
+				else if (element is CrateElement)
+					levelState.CratePositions.Add (new Vector2Int (x, y));
+			}
+		}
+
+		FindObjectOfType<LevelManager> ().LevelMemento.AddLevelState (levelState);
+
 		Move (direction);
 		PrintLevelState ();
 	}

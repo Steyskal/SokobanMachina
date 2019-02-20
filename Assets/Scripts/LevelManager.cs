@@ -29,11 +29,31 @@ public class LevelManager : MonoBehaviour
 
 	private Element[,] level;
 
+	[Header("Read-only")]
+	[SerializeField]
+	private LevelMemento _levelMemento;
+	//property
+	public LevelMemento LevelMemento
+	{
+		get
+		{
+			return _levelMemento;
+		}
+	}
+
 	private void Awake()
 	{
 		_transform = transform;
 
-		//GenerateLevel ();
+		InputManager.Instance.OnUndoInputReceived.AddListener (OnUndoInputReceivedListener);
+
+		GenerateLevel ();
+		CreateLevelMemento();
+	}
+
+	public void CreateLevelMemento()
+	{
+		_levelMemento = new LevelMemento (LevelData);
 	}
 
 	public void ClearLevel()
@@ -143,6 +163,13 @@ public class LevelManager : MonoBehaviour
 
 		for (int i = 0; i < randomBlockCount; i++)
 			LevelData.CratePositions.Add (GetRandomAvailableGridPosition (availableGridPositions));
+
+		GenerateLevel ();
+	}
+
+	private void OnUndoInputReceivedListener()
+	{
+		LevelData = _levelMemento.GetLastLevelState ();
 
 		GenerateLevel ();
 	}

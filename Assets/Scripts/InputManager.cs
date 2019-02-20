@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.Events;
+
 public class InputManager : MonoBehaviour
 {
 	#region Singleton
@@ -30,6 +32,8 @@ public class InputManager : MonoBehaviour
 
 	public CustomUnityEvent<Direction> OnInputReceived = new CustomUnityEvent<Direction>();
 
+	public UnityEvent OnUndoInputReceived = new UnityEvent();
+
 	public float SwipeDeadzoneRadius;
 
 	private Vector3 _swipeDirection;
@@ -40,6 +44,7 @@ public class InputManager : MonoBehaviour
 			Destroy (gameObject);
 
 		OnInputReceived.AddListener (OnInputReceivedListener);
+		OnUndoInputReceived.AddListener (OnUndoInputReceivedListener);
 	}
 
 	private void Update()
@@ -68,6 +73,8 @@ public class InputManager : MonoBehaviour
 			OnInputReceived.Invoke (Direction.Left);
 		else if (IsOneKeyDown (InputKeyCodesData.RightKeyCodes))
 			OnInputReceived.Invoke (Direction.Right);
+		else if (IsOneKeyDown (InputKeyCodesData.UndoKeyCodes))
+			OnUndoInputReceived.Invoke ();
 	}
 
 	private void CheckMouseInput()
@@ -115,5 +122,10 @@ public class InputManager : MonoBehaviour
 	private void OnInputReceivedListener(Direction direction)
 	{
 		Debug.Log (direction);
+	}
+
+	private void OnUndoInputReceivedListener()
+	{
+		Debug.Log ("UNDO!");
 	}
 }
