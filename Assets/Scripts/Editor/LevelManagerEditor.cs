@@ -30,10 +30,16 @@ public class LevelManagerEditor : Editor
 			levelManager.ClearLevel ();
 
 		if (GUILayout.Button ("Generate Level"))
+		{
 			levelManager.GenerateLevel ();
+			levelManager.CreateLevelMemento ();
+		}
 
 		if (GUILayout.Button ("Generate Random Level"))
+		{
 			levelManager.GenerateRandomLevel ();
+			levelManager.CreateLevelMemento ();
+		}
 
 		if (GUILayout.Button ("Save Level as Asset"))
 			SaveLevelDataAsAsset (levelManager.LevelData);

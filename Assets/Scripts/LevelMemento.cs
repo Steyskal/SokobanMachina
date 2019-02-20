@@ -15,13 +15,13 @@ public class LevelMemento
 
 	public void AddLevelState(LevelData levelState)
 	{
-		_levelStates.Add (levelState);
+		_levelStates.Add (ScriptableObject.Instantiate(levelState));
 	}
 
 	public LevelData GetLastLevelState()
 	{
 		if (_levelStates.Count == 1)
-			return _levelStates [0];
+			return ScriptableObject.Instantiate(_levelStates[0]);
 
 		// da li se moze stavit -1 kao index
 		LevelData lastLevelState = _levelStates[_levelStates.Count - 1];

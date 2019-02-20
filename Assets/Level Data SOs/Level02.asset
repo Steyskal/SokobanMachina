@@ -15,7 +15,7 @@ MonoBehaviour:
   PlayerPosition: {x: 0, y: 0}
   ExitPosition: {x: 3, y: 3}
   BlockPositions:
-  - {x: 3, y: 3}
+  - {x: 3, y: 2}
   - {x: 2, y: 2}
   CratePositions:
   - {x: 0, y: 2}

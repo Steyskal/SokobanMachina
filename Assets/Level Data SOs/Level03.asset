@@ -12,15 +12,11 @@ MonoBehaviour:
   m_Name: Level03
   m_EditorClassIdentifier: 
   Size: {x: 4, y: 4}
-  PlayerPosition: {x: 2, y: 0}
-  ExitPosition: {x: 0, y: 1}
+  PlayerPosition: {x: 0, y: 0}
+  ExitPosition: {x: 3, y: 3}
   BlockPositions:
-  - {x: 1, y: 3}
-  - {x: 0, y: 0}
-  - {x: 1, y: 0}
-  - {x: 3, y: 1}
-  CratePositions:
-  - {x: 2, y: 1}
-  - {x: 0, y: 2}
   - {x: 3, y: 3}
-  - {x: 2, y: 3}
+  - {x: 2, y: 2}
+  CratePositions:
+  - {x: 0, y: 2}
+  - {x: 1, y: 1}

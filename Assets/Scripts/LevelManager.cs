@@ -51,6 +51,10 @@ public class LevelManager : MonoBehaviour
 		CreateLevelMemento();
 	}
 
+	public void Test()
+	{
+	}
+
 	public void CreateLevelMemento()
 	{
 		_levelMemento = new LevelMemento (LevelData);

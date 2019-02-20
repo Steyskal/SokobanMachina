@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerElement : Element
 {
@@ -35,8 +36,9 @@ public class PlayerElement : Element
 					//PlayerElement = GetComponent<PlayerElement>();
 					_Level[(int)_transform.position.x,(int)_transform.position.y] = this;
 
+					// provijeriti da li smo na zadnjem levelu
 					if(destinationElement is ExitElement)
-						Debug.Log("Victory!");
+						SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
 
 					return true;
 				}
